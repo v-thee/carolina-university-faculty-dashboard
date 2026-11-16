@@ -177,11 +177,11 @@ h2, h3 { margin: 0; font-size: 18px; letter-spacing: -.005em; }
 .chart .tt { fill: var(--tt); }
 .chart .gl { stroke: var(--gd); stroke-width: 1; }
 .chart .tl { stroke: var(--ink); stroke-dasharray: 2 4; stroke-width: 1; }
-.chart .al2 { fill: none; stroke: var(--cl); stroke-width: 2; stroke-linejoin: round; }
-.chart .pt { fill: #fff; stroke: var(--cl); stroke-width: 2; }
+.chart .al2 { fill: none; stroke: var(--chart-blue); stroke-width: 2; stroke-linejoin: round; }
+.chart .pt { fill: #fff; stroke: var(--chart-blue); stroke-width: 2; }
 .chart .en { fill: var(--ink); font-size: 11px; font-weight: 800; }
 .chart .fl { fill: none; stroke: #b88a00; stroke-width: 2; stroke-dasharray: 5 4; }
-.chart .bd { fill: var(--yel); opacity: .25; }
+.chart .bd { fill: var(--chart-yellow); opacity: .25; }
 .chart .vl { stroke: var(--ink); stroke-dasharray: 2 3; }
 .chart .hd { fill: var(--ink); stroke: #fff; stroke-width: 2; }
 .chart .rw rect { transition: opacity .15s; }
@@ -349,6 +349,7 @@ dd { margin: 2px 0 0; font-size: 13.5px; }
   --navy: #0d2a78; --royal: #1636a8; --cl: #0d2a78; --gd: rgba(13, 42, 120, .12);
   --tt: #8a6500; --coral: #ff6f61;
   --ok: #17804a; --warn: #f0b400; --bad: #c62828;
+  --chart-blue: #1636a8; --chart-blue-light: #5b7cf0; --chart-yellow: #f0b400;
 }
 body { background: linear-gradient(160deg, #d3def6, #f3f6fd); background-attachment: fixed; overflow-x: hidden; }
 .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
@@ -505,8 +506,8 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 .al button, .k { border-radius: 14px; }
 .ai { border-radius: 50%; background: var(--bad); }
 .ai.n { background: var(--warn); box-shadow: none; }
-.drv u { border-radius: 0 6px 6px 0; background: var(--ok); }
-.drv u.n { border-radius: 6px 0 0 6px; background: var(--bad); }
+.drv u { border-radius: 0 6px 6px 0; background: var(--chart-blue); }
+.drv u.n { border-radius: 6px 0 0 6px; background: var(--chart-yellow); }
 .drv i { height: 12px; }
 .drv u { top: 0; bottom: 0; }
 .pv, .cav { border-radius: 0; }
@@ -520,11 +521,11 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 .chart .rl { fill: var(--ink); font-size: 11px; font-weight: 800; }
 .hint { font-size: 11.5px; color: var(--mute); margin: 4px 0 0; }
 
-.chart .fl { fill: none; stroke: #f0b400; stroke-width: 3; stroke-dasharray: 7 6; stroke-linecap: round; }
-.chart .tr { fill: none; stroke: #0d2a78; stroke-width: 1.5; opacity: .35; }
+.chart .fl { fill: none; stroke: var(--chart-yellow); stroke-width: 3; stroke-dasharray: 7 6; stroke-linecap: round; }
+.chart .tr { fill: none; stroke: var(--chart-blue-light); stroke-width: 1.5; opacity: .8; }
 .chart .al2 { stroke-width: 2.5; stroke-linejoin: miter; stroke-miterlimit: 8; }
 .chart .fl { stroke-linejoin: miter; stroke-miterlimit: 8; }
-.chart .tl { stroke: var(--navy); stroke-dasharray: 6 4; stroke-width: 1.5; }
+.chart .tl { stroke: var(--chart-yellow); stroke-dasharray: 6 4; stroke-width: 2; }
 
 .dk .link { color: var(--yel); }
 .dk .link:hover { color: #fff; }
@@ -545,7 +546,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 .dtab { min-width: 900px; }
 
 .chart svg { cursor: crosshair; }
-.chart .sel { fill: var(--yel); stroke: var(--navy); stroke-width: 2; pointer-events: none; }
+.chart .sel { fill: var(--chart-yellow); stroke: var(--chart-blue); stroke-width: 2; pointer-events: none; }
 .pick {
   margin-top: 10px; padding: 10px 14px; font-size: 12.5px; border-left: 3px solid var(--yel);
   background: rgba(255, 255, 255, .65); border-radius: 0 12px 12px 0;
@@ -588,14 +589,12 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
   box-shadow: 0 10px 26px rgba(7, 26, 74, .1); transition: transform .15s, box-shadow .15s, background .15s;
 }
 .k:hover { transform: translateY(-3px); background: #fff; box-shadow: 0 16px 34px rgba(7, 26, 74, .18); }
-.k[data-s="0"] .kb u { background: var(--ok); }
-.k[data-s="1"] .kb u { background: var(--warn); }
-.k[data-s="2"] .kb u { background: var(--bad); }
+.k[data-s="0"] .kb u, .k[data-s="1"] .kb u, .k[data-s="2"] .kb u { background: var(--chart-blue); }
 /* Bar: rounded track with a target marker. Status shows in the icon, chip and bar fill only. */
 .k { gap: 10px; }
 .k .kb { height: 8px; border-radius: 99px; position: relative; overflow: visible; -webkit-mask: none; mask: none; background: rgba(13, 42, 120, .12); }
 .k .kb u { border-radius: 99px; }
-.k .kt { position: absolute; top: -4px; bottom: -4px; width: 2px; border-radius: 2px; background: var(--deep); }
+.k .kt { position: absolute; top: -4px; bottom: -4px; width: 2px; border-radius: 2px; background: var(--chart-yellow); }
 .k:hover .kb { background: rgba(13, 42, 120, .18); }
 .kf { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 11.5px; }
 .kchip { font-size: 10.5px; font-weight: 800; padding: 2px 9px; border-radius: 99px; }
@@ -631,34 +630,34 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 .sg .good { color: var(--ok); }
 
 /* Section comparison */
-.cmp-tools { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: flex-end; gap: 12px; margin: 14px 0 12px; }
-.cmp-tools label { display: grid; gap: 4px; color: var(--mute); font-size: 11.5px; font-weight: 700; }
-.cmp-title { margin: 0 auto 0 0; color: var(--deep); font-size: 17px; font-family: Georgia, serif; font-weight: 700; }
-.cmp-list { display: grid; gap: 10px; }
-.cmp-list.multi { grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 22px; align-items: start; }
-.cmp-rows { display: grid; gap: 10px; }
-.cmp-gt { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin: 0 4px 10px; font-size: 13px; color: var(--deep); }
-.cmp-gt b { font-family: Georgia, serif; font-size: 15px; }
-.cmp-gt small { color: var(--mute); font-size: 11px; font-weight: 600; }
+.cmp-tools { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0 8px; }
+.cmp-title { margin: 0; color: var(--mute); font-size: 11.5px; font-weight: 700; }
+.cmp-list { display: grid; gap: 7px; }
 .cmp-row {
-  width: 100%; display: grid; grid-template-columns: minmax(130px, 210px) 1fr 104px;
-  align-items: center; gap: 12px; min-height: 62px; padding: 10px 16px;
+  width: 100%; display: grid; grid-template-columns: minmax(160px, 1fr) minmax(48px, .35fr) minmax(100px, .5fr) minmax(118px, .48fr);
+  align-items: center; gap: 14px; min-height: 66px; padding: 10px 14px;
   background: rgba(255, 255, 255, .6); border: 1px solid rgba(255, 255, 255, .9); border-radius: 18px;
-  box-shadow: 0 6px 16px rgba(7, 26, 74, .07); text-align: left; transition: background .15s, box-shadow .15s;
+  box-shadow: 0 6px 16px rgba(7, 26, 74, .07); text-align: left; cursor: pointer;
+  transition: background .15s, box-shadow .15s, transform .15s;
 }
-.cmp-row:hover { background: #fff; }
-div.cmp-row { cursor: default; }
-.cmp-row[aria-pressed=true] { background: #fff; box-shadow: 0 0 0 2px var(--navy), 0 8px 20px rgba(7, 26, 74, .12); }
-.cmp-name { display: grid; line-height: 1.25; font-size: 12.5px; font-weight: 700; color: var(--deep); }
+.cmp-row:hover { background: #fff; transform: translateY(-1px); box-shadow: 0 10px 22px rgba(7, 26, 74, .12); }
+.cmp-row[aria-pressed=true] { background: #fff; border-color: var(--chart-yellow); box-shadow: 0 0 0 2px var(--chart-yellow), 0 8px 20px rgba(7, 26, 74, .12); }
+.cmp-name { display: grid; gap: 3px; line-height: 1.25; font-size: 13px; font-weight: 800; color: var(--deep); }
 .cmp-name small { color: var(--mute); font-weight: 600; font-size: 11px; }
-.cmp-row.total .cmp-name b::after { content: " · overall"; color: var(--mute); font-weight: 600; font-size: 11px; }
-.cmp-track { position: relative; height: 16px; border-radius: 99px; background: rgba(13, 42, 120, .1); }
-.cmp-bar { display: block; height: 100%; width: var(--value); border-radius: 99px; background: var(--ok); transition: width .25s ease; }
-.cmp-row.s1 .cmp-bar { background: var(--warn); }
-.cmp-row.s2 .cmp-bar { background: var(--bad); }
-.cmp-tick { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--deep); }
-.cmp-value { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--deep); }
-.cmp-note { margin: 12px 8px 0; color: var(--mute); font-size: 11.5px; }
+.cmp-enrol { color: var(--mute); font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+.cmp-track { position: relative; height: 11px; border-radius: 99px; background: rgba(13, 42, 120, .12); overflow: hidden; }
+.cmp-bar { display: block; height: 100%; width: var(--value); border-radius: 99px; background: linear-gradient(90deg, var(--chart-blue), var(--chart-blue-light)); transition: width .25s ease; }
+.cmp-value { font-size: 14px; font-weight: 800; color: var(--deep); white-space: nowrap; }
+.cmp-status { justify-self: end; padding: 5px 10px; border-radius: 99px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+.cmp-status.ok { background: #e0f3e8; color: var(--ok); }
+.cmp-status.watch { background: #fff1c2; color: #7a5a00; }
+.cmp-status.alert { background: #fde2e2; color: var(--bad); }
+.cmp-note { margin: 9px 4px 0; color: var(--mute); font-size: 11px; }
+.alert-tools { display: flex; align-items: center; gap: 8px; flex: none; }
+.scroll-alerts { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid rgba(255,255,255,.32); border-radius: 50%; color: #fff; background: rgba(255,255,255,.1); transition: background .15s, transform .15s; }
+.scroll-alerts:hover { background: rgba(255,255,255,.22); transform: translateY(2px); }
+.scroll-alerts svg { width: 18px; height: 18px; }
+.scroll-alerts.up svg { transform: rotate(180deg); }
 
 /* Student popup tabs */
 .stabs .chip { padding: 7px 14px; }
@@ -767,11 +766,13 @@ div.cmp-row { cursor: default; }
   }
   .ft { display: grid; gap: 5px; margin-top: 18px; padding: 14px 18px; border-radius: 20px; }
   .mod { max-height: 90dvh; }
-  .cmp-tools .dd { width: 100%; min-width: 0; }
-  .cmp-tools label { width: 100%; }
-  .cmp-row { grid-template-columns: minmax(88px, 1fr) minmax(55px, 1.5fr) 80px; gap: 8px; padding: 8px 10px; }
-  .cmp-name { font-size: 11.5px; }
-  .cmp-value { font-size: 12px; }
+  .cmp-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto 10px; gap: 7px 10px; padding: 10px 11px; }
+  .cmp-name { grid-column: 1; grid-row: 1; font-size: 12px; }
+  .cmp-enrol { grid-column: 1; grid-row: 2; }
+  .cmp-value { grid-column: 2; grid-row: 1; font-size: 13px; }
+  .cmp-status { grid-column: 2; grid-row: 2; }
+  .cmp-track { grid-column: 1 / -1; grid-row: 3; }
+  .cmp-reset { min-height: 40px; padding: 0 12px; }
 }
 
 @media (max-width: 380px) {
@@ -868,7 +869,10 @@ div.cmp-row { cursor: default; }
 <article class="c w5 dk" id="alerts">
         <div class="ch">
           <div><h3>Needs attention</h3><span>Conditions that need attention</span></div>
-          <div style="display:flex;gap:8px;align-items:center">
+          <div class="alert-tools">
+            <button class="scroll-alerts" id="ascr" type="button" aria-label="Scroll to next conditions" title="Scroll to next conditions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
             <span class="source-icon ins" role="img" aria-label="Insight" title="Insight" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M8.2 14.5A7 7 0 1 1 15.8 14.5c-.9.7-1.3 1.4-1.5 2.5h-4.6c-.2-1.1-.6-1.8-1.5-2.5Z"/><path d="M12 5v2M5.5 11H7"/></svg></span><b class="cnt" id="ac"></b>
           </div>
         </div>
@@ -884,31 +888,15 @@ div.cmp-row { cursor: default; }
       </article>
 <article class="o w12" id="cmp">
         <div class="ch">
-          <div><h3>Section comparison</h3><span>Compare course sections across every metric, or focus on one</span></div>
+          <div><h3>Section Overview</h3><span>Compare the overall performance of your assigned sections</span></div>
           <span class="source-icon ins" role="img" aria-label="Insight" title="Insight" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M8.2 14.5A7 7 0 1 1 15.8 14.5c-.9.7-1.3 1.4-1.5 2.5h-4.6c-.2-1.1-.6-1.8-1.5-2.5Z"/><path d="M12 5v2M5.5 11H7"/></svg></span>
         </div>
         <div class="cmp-tools">
-          <p class="cmp-title" id="cmp-title">All metrics by section</p>
-          <label for="cmp-sec">Sections
-            <select id="cmp-sec">
-              <option value="all">All sections</option>
-              <option value="dm">BA 301 Data Mining</option>
-              <option value="bi">BA 302 Business Intelligence</option>
-              <option value="pm">BA 303 Predictive Modeling</option>
-            </select>
-          </label>
-          <label for="cmp-metric">Compare
-            <select id="cmp-metric">
-              <option value="all">All metrics</option>
-              <option value="pass">Pass rate</option>
-              <option value="grade">Average grade</option>
-              <option value="attendance">Attendance</option>
-              <option value="assessment">Assessment completion</option>
-            </select>
-          </label>
+          <p class="cmp-title">Assigned sections · Demonstration data</p>
+          <button type="button" class="link cmp-reset" id="cmp-reset" hidden>Show all sections</button>
         </div>
-        <div class="cmp-list" id="cmp-chart" role="group" aria-label="Section comparison bar chart"></div>
-        <p class="cmp-note">Demonstration data · Select a row to filter the dashboard to that section.</p>
+        <div class="cmp-list" id="cmp-chart" role="group" aria-label="Overview of all assigned sections"></div>
+        <p class="cmp-note">Bars show pass rate; red, amber, and green indicators show section status. Select any section to apply the global Section filter.</p>
       </article>
       <div class="atb" id="analytics">
         <div>
@@ -936,10 +924,10 @@ div.cmp-row { cursor: default; }
         <div class="two">
           <div><p class="sub" id="pt"></p><div class="chart" id="c1"></div>
             <div class="lg">
-              <span><i style="background:#0d2a78"></i>Actual (Weeks 1–8)</span>
+              <span><i style="background:#1636a8"></i>Actual (Weeks 1–8)</span>
               <span><i style="background:rgba(13,42,120,.45);height:2px;width:16px;vertical-align:3px"></i>Trend line</span>
               <span><i style="background:none;border-top:3px dashed #f0b400;height:0;width:16px;vertical-align:2px"></i>Projection (Weeks 9–14)</span>
-              <span id="tgl"><i style="background:none;border-top:2px dashed #0d2a78;height:0;width:16px;vertical-align:3px"></i>90% target</span>
+              <span id="tgl"><i style="background:none;border-top:2px dashed #f0b400;height:0;width:16px;vertical-align:3px"></i>90% target</span>
             </div>
             <p class="hint">Hover for exact values. Select a point for details and SETE context.</p>
             <div class="pick" id="pk1" hidden></div>
@@ -950,8 +938,8 @@ div.cmp-row { cursor: default; }
             <div class="chart" id="c2"></div>
             <div class="pass-fail" id="pf"></div>
             <div class="lg">
-              <span><i style="background:#17804a"></i>Passing (A to D)</span>
-              <span><i style="background:#c62828"></i>Failing (F)</span>
+              <span><i style="background:#1636a8"></i>Passing (A to D)</span>
+              <span><i style="background:#f0b400"></i>Failing (F)</span>
             </div>
           </div>
         </div>
@@ -964,8 +952,8 @@ div.cmp-row { cursor: default; }
         </div>
         <div class="drv" id="dg"></div>
         <div class="lg">
-          <span><i style="background:#17804a"></i>Raises grades</span>
-          <span><i style="background:#c62828"></i>Lowers grades</span>
+          <span><i style="background:#1636a8"></i>Raises grades</span>
+          <span><i style="background:#f0b400"></i>Lowers grades</span>
         </div>
         <p class="in" id="i2"></p>
       </article>
@@ -983,10 +971,10 @@ div.cmp-row { cursor: default; }
         </div>
         <div class="fcg"><div class="chart" id="c3"></div><div class="fs" id="fs"></div></div>
         <div class="lg">
-          <span><i style="background:#0d2a78"></i>Actual</span>
+          <span><i style="background:#1636a8"></i>Actual</span>
           <span><i style="background:rgba(13,42,120,.45);height:2px;width:16px;vertical-align:3px"></i>Trend line</span>
           <span><i style="background:none;border-top:3px dashed #f0b400;height:0;width:16px;vertical-align:2px"></i>Prediction</span>
-          <span><i style="background:#0d2a78"></i>90% target</span>
+          <span><i style="background:#f0b400"></i>90% target</span>
         </div>
         <p class="hint">Historical points are aligned to the current calculated pass rate. Dashed points are illustrative estimates, not actual portal results.</p>
         <div class="pick" id="pk3" hidden></div>
@@ -1402,7 +1390,7 @@ function bars(g, n) {
     s += `<g class="bb" tabindex="0" role="button" data-g="${i}" aria-label="Grade ${L[i]}: ${v} students. Show list" `
       + `data-tip="Grade ${L[i]} (${R[i]}): ${v} students, ${(100 * v / n).toFixed(0)}%. Select to list">`
       + `<rect x="${pl + i * step}" y="${pt}" width="${step}" height="${base - pt}" fill="transparent"/>`
-      + `<rect x="${x}" y="${top}" width="${bw}" height="${Math.max(base - top, 1)}" rx="5" fill="${i === 4 ? "#c62828" : "#17804a"}"/>`
+      + `<rect x="${x}" y="${top}" width="${bw}" height="${Math.max(base - top, 1)}" rx="5" fill="${i === 4 ? "#f0b400" : "#1636a8"}"/>`
       + `<text class="rl" x="${x + bw / 2}" y="${top - 6}" text-anchor="middle">${v}</text>`
       + `<text class="rl" x="${x + bw / 2}" y="${h - 22}" text-anchor="middle">${L[i]}</text>`
       + `<text x="${x + bw / 2}" y="${h - 9}" text-anchor="middle">${R[i]}</text></g>`;
@@ -1552,7 +1540,30 @@ function rA() {
     ? `${T === 1 ? "Requires" : "Require"} review in your selected section.`
     : "No active conditions require review in your selected section.";
   $("#hero-count").setAttribute("aria-label", `${T} ${T === 1 ? "alert" : "alerts"} in ${sectionName}`);
+  updateAlertScroll();
 }
+
+function updateAlertScroll() {
+  const list = $("#al");
+  const button = $("#ascr");
+  const canScroll = list.scrollHeight > list.clientHeight + 4;
+  button.hidden = !canScroll;
+  if (!canScroll) return;
+  const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 4;
+  button.classList.toggle("up", atBottom);
+  button.setAttribute("aria-label", atBottom ? "Return to top of conditions" : "Scroll to next conditions");
+  button.title = atBottom ? "Return to top of conditions" : "Scroll to next conditions";
+}
+$("#ascr").onclick = () => {
+  const list = $("#al");
+  const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 4;
+  const target = atBottom ? 0 : Math.min(list.scrollTop + list.clientHeight * .8, list.scrollHeight);
+  const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches || document.visibilityState === "hidden"
+    ? "instant" : "smooth";
+  list.scrollTo({ top: target, behavior });
+};
+$("#al").onscroll = updateAlertScroll;
+window.addEventListener("resize", updateAlertScroll);
 
 function rF(c) {
   const h = +$("#hz").value;
@@ -1839,70 +1850,26 @@ function toast(t) {
   toast.t = setTimeout(() => e.classList.remove("on"), 2400);
 }
 
-/* Section comparison.
-   - Sections = All, Compare = All metrics: every metric side by side, one group per metric.
-   - Sections = one section, Compare = All metrics: all metrics for that section in one list.
-   - Compare = one metric: the original single-metric view. */
+/* Section overview always shows every assigned section; the global selector controls other panels. */
 function rC() {
-  const metric = $("#cmp-metric").value;
-  const pick = $("#cmp-sec").value;
-  const pc = v => `${v.toFixed(1)}%`;
-  const specs = {
-    pass: { lab: "Pass rate", title: "Pass rate by section (%)", v: c => c.pass, f: pc, t: 90, w: 75, u: "%" },
-    grade: { lab: "Average grade", title: "Average grade by section (points / 100)", v: c => mean(c.S.map(s => s.av)), f: v => v.toFixed(1), t: 85, w: 75, u: "" },
-    attendance: { lab: "Attendance", title: "Attendance by section (%)", v: c => c.att, f: pc, t: 90, w: 85, u: "%" },
-    assessment: { lab: "Assessment completion", title: "Assessment completion by section (%)", v: c => c.assessment, f: pc, t: 90, w: 80, u: "%" }
-  };
-  const mk = metric === "all" ? Object.keys(specs) : [metric];
-  const sk = pick === "all" ? ["all", ...Object.keys(CR)] : [pick];
-  const nm = k => k === "all" ? "All my sections" : CR[k].name;
-  const goal = sp => `Target ${sp.t}${sp.u} · alert below ${sp.w}${sp.u}`;
-
-  /* One row. k = section key makes it selectable; null makes it a plain row. */
-  const row = (name, sub, v, sp, k) => {
-    const s = v >= sp.t ? 0 : v >= sp.w ? 1 : 2;
-    const lab = ["On track", "Watch", "Alert"][s];
-    const cls = `cmp-row s${s}${k === "all" ? " total" : ""}`;
-    const inner = `<span class="cmp-name"><b>${name}</b><small>${sub}</small></span>`
-      + `<span class="cmp-track" aria-hidden="true"><span class="cmp-bar" style="--value:${cl(v, 0, 100)}%"></span>`
-      + `<span class="cmp-tick" style="left:${sp.t}%"></span></span>`
-      + `<span class="cmp-value">${sp.f(v)}${statusIcon(["ok", "watch", "alert"][s], lab)}</span>`;
-    return k
-      ? `<button type="button" class="${cls}" data-k="${k}" aria-pressed="${key === k}" aria-label="${name}: ${sp.f(v)}, ${lab}. Select section">${inner}</button>`
-      : `<div class="${cls}" role="group" aria-label="${name}: ${sp.f(v)}, ${lab}">${inner}</div>`;
-  };
-
-  let groups;
-  if (pick !== "all" && metric === "all") {
-    const c = calc(pick);
-    groups = [{
-      head: nm(pick), sub: `${c.n} students`,
-      rows: mk.map(m => row(specs[m].lab, goal(specs[m]), specs[m].v(c), specs[m], null))
-    }];
-  } else {
-    groups = mk.map(m => ({
-      head: specs[m].lab, sub: goal(specs[m]),
-      rows: sk.map(k => {
-        const c = calc(k);
-        return row(nm(k), `${c.n} students`, specs[m].v(c), specs[m], k);
-      })
-    }));
-  }
-
-  $("#cmp-title").textContent = metric === "all"
-    ? (pick === "all" ? "All metrics by section" : `${nm(pick)} · all metrics`)
-    : specs[metric].title;
-  $("#cmp-chart").className = "cmp-list" + (groups.length > 1 ? " multi" : "");
-  $("#cmp-chart").innerHTML = groups.map(g =>
-    `<div class="cmp-group">`
-    + (metric === "all" ? `<p class="cmp-gt"><b>${g.head}</b><small>${g.sub}</small></p>` : "")
-    + `<div class="cmp-rows">${g.rows.join("")}</div></div>`
-  ).join("");
-  $(".cmp-note").textContent = "Demonstration data · Dark mark = target. Green on track, amber watch, red alert (below the warning level). "
-    + (pick === "all" ? "Select a section row to filter the dashboard to that section." : "Choose All sections to compare every section.");
+  const statuses = [
+    { min: 90, cls: "ok", label: "On Track" },
+    { min: 75, cls: "watch", label: "Watch" },
+    { min: 0, cls: "alert", label: "Needs Attention" }
+  ];
+  $("#cmp-chart").innerHTML = Object.keys(CR).map(k => {
+    const c = calc(k);
+    const v = c.pass;
+    const status = statuses.find(s => v >= s.min);
+    return `<button type="button" class="cmp-row" data-k="${k}" aria-pressed="${key === k}" aria-label="${CR[k].name}, ${c.n} students, ${v.toFixed(1)} percent pass rate, ${status.label}. Select this section">`
+      + `<span class="cmp-name">${CR[k].name}</span>`
+      + `<span class="cmp-enrol">${c.n} students</span>`
+      + `<span class="cmp-rate"><span class="cmp-value">${v.toFixed(1)}%</span>`
+      + `<span class="cmp-track" aria-hidden="true"><span class="cmp-bar" style="--value:${cl(v, 0, 100)}%"></span></span></span>`
+      + `<span class="cmp-status ${status.cls}">${status.label}</span></button>`;
+  }).join("");
+  $("#cmp-reset").hidden = key === "all";
 }
-$("#cmp-metric").onchange = rC;
-$("#cmp-sec").onchange = rC;
 function pickSection(e) {
   const r = e.target.closest(".cmp-row");
   if (!r || !r.dataset.k) return;
@@ -1910,6 +1877,10 @@ function pickSection(e) {
   $("#sec").dispatchEvent(new Event("change"));
 }
 $("#cmp-chart").onclick = pickSection;
+$("#cmp-reset").onclick = () => {
+  $("#sec").value = "all";
+  $("#sec").dispatchEvent(new Event("change"));
+};
 
 /* KPI definitions dialog */
 function kdRender() {
@@ -2122,8 +2093,6 @@ function resetAll() {
   $("#hz").value = 9;
   $("#s1").value = 2;
   $("#s2").value = 90;
-  $("#cmp-metric").value = "all";
-  $("#cmp-sec").value = "all";
   $("#mq").value = "";
   $("#q").value = "";
   $$("#chips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.r === "all"));
