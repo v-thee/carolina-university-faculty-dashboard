@@ -451,6 +451,39 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 .kx.ok { background: rgba(13, 42, 120, .1); color: var(--deep); }
 .kx.wa { box-shadow: inset 0 0 0 1.5px #c99a00; color: #7a5a00; }
 .kx.al { background: var(--yel); color: #231a00; }
+.tg.rec, .tg.ins, .in em {
+  display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0;
+  margin: 0 4px 0 0; font-size: 0; line-height: 1; vertical-align: middle;
+}
+.tg.rec::before { content: "✓"; font-size: 14px; }
+.tg.ins::before, .in em::before {
+  content: "i"; display: grid; place-items: center; width: 14px; height: 14px;
+  border: 1.5px solid currentColor; border-radius: 50%; font-size: 10px; font-weight: 800;
+}
+.in em { background: #fdf0bd; color: #6b4e00; border-radius: 50%; }
+.kx.ok, .kx.wa, .kx.al {
+  display: inline-grid; place-items: center; width: 26px; min-width: 26px; height: 26px;
+  padding: 0; border-radius: 50%; font-size: 0; vertical-align: middle;
+}
+.kx::before { font-size: 14px; line-height: 1; font-weight: 800; }
+.kx.ok::before { content: "✓"; }
+.kx.wa::before { content: "◉"; }
+.kx.al::before { content: "!"; }
+.status-pill, .severity-icon {
+  display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 7px;
+  border-radius: 99px; font-size: 0; vertical-align: middle;
+}
+.status-pill::before, .severity-icon::before { font-size: 13px; font-weight: 800; }
+.status-pill.ok, .severity-icon.watch { background: rgba(13, 42, 120, .1); color: var(--deep); }
+.status-pill.watch, .severity-icon.alert { box-shadow: inset 0 0 0 1.5px #c99a00; color: #7a5a00; }
+.status-pill.alert, .severity-icon.alert { background: var(--yel); color: #231a00; }
+.status-pill.ok::before { content: "✓"; }
+.status-pill.watch::before, .severity-icon.watch::before { content: "◉"; }
+.status-pill.alert::before, .severity-icon.alert::before { content: "!"; }
+.alert-filter { display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0; font-size: 0; }
+.alert-filter::before { font-size: 15px; font-weight: 800; }
+.alert-filter[data-f="alert"]::before { content: "!"; }
+.alert-filter[data-f="watch"]::before { content: "◉"; }
 
 /* Panels: glass for decisions, open sections for the rest */
 .c {
@@ -751,8 +784,8 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
       <div class="hfoot">
         <p class="scope" id="hs"></p>
           <p class="key">
-          <span class="key-item"><span class="tg rec">Recorded</span><span class="key-desc">from portal records</span></span>
-          <span class="key-item"><span class="tg ins">Insight</span><span class="key-desc">calculated from records</span></span>
+          <span class="key-item"><span class="tg rec" role="img" aria-label="Recorded" title="Recorded"></span><span class="key-desc">from portal records</span></span>
+          <span class="key-item"><span class="tg ins" role="img" aria-label="Insight" title="Insight"></span><span class="key-desc">calculated from records</span></span>
           <span class="key-item"><span class="tg prop">Proposed</span><span class="key-desc">planned feature, not in the live portal yet</span></span>
         </p>
       </div>
@@ -770,7 +803,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
               <path d="M5 5h14M5 12h14M5 19h14"/><circle cx="2.5" cy="5" r=".5" fill="currentColor"/><circle cx="2.5" cy="12" r=".5" fill="currentColor"/><circle cx="2.5" cy="19" r=".5" fill="currentColor"/>
             </svg><span>View KPI definitions</span>
           </button>
-          <span class="tg rec" style="margin:0">Recorded</span>
+          <span class="tg rec" role="img" aria-label="Recorded" title="Recorded" style="margin:0"></span>
         </div>
       </div>
       <div class="ks" id="ks"></div>
@@ -779,9 +812,9 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
     <section class="bento">
 <article class="c w5 dk" id="alerts">
         <div class="ch">
-          <div><h3>Alerts</h3><span>Conditions that need attention</span></div>
+          <div><h3>Needs attention</h3><span>Conditions that need attention</span></div>
           <div style="display:flex;gap:8px;align-items:center">
-            <span class="tg ins" style="margin:0">Insight</span><b class="cnt" id="ac"></b>
+            <span class="tg ins" role="img" aria-label="Insight" title="Insight" style="margin:0"></span><b class="cnt" id="ac"></b>
           </div>
         </div>
         <ul class="al" id="al"></ul>
@@ -797,7 +830,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 <article class="o w12" id="cmp">
         <div class="ch">
           <div><h3>Section comparison</h3><span>Select a row to view that section</span></div>
-          <span class="tg ins" style="margin:0">Insight</span>
+          <span class="tg ins" role="img" aria-label="Insight" title="Insight" style="margin:0"></span>
         </div>
         <div class="tw" style="margin-top:12px">
           <table class="ctab">
@@ -824,7 +857,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
         <div class="ch">
           <div>
             <h3>Class performance</h3>
-            <span>Weekly results and grade distribution · <i class="tg rec" style="margin:0">Recorded</i></span>
+            <span>Weekly results and grade distribution · <i class="tg rec" role="img" aria-label="Recorded" title="Recorded" style="margin:0"></i></span>
           </div>
           <select id="seg" aria-label="Metric shown">
             <option value="sc">Class average</option>
@@ -857,7 +890,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 <article class="o w4" id="drv">
         <div class="ch">
           <div><h3>What drives grades</h3><span>Link with final grade (r, from −1 to +1). Bars to the left lower grades</span></div>
-          <span class="tg ins" style="margin:0">Insight</span>
+          <span class="tg ins" role="img" aria-label="Insight" title="Insight" style="margin:0"></span>
         </div>
         <div class="drv" id="dg"></div>
         <div class="lg">
@@ -1351,7 +1384,7 @@ function rK(c) {
       + `<b class="kv">${v.toFixed(1)}<small>${d.u}</small></b>`
       + `<i class="kb"><u style="width:${Math.min(100, v / d.t * 100)}%"></u></i>`
       + `<span class="kf">Target ${d.tt} · ${foot}<br>Warns below ${d.w}${d.u === "/5" ? "" : "%"}</span>`
-      + `<span class="kx ${["ok", "wa", "al"][s]}" role="img" aria-label="Status: ${["On track", "Watch", "Alert"][s]}" title="${["On track", "Watch", "Alert"][s]}">${["On track", "Watch", "Alert"][s]}</span>`
+      + `<span class="kx ${["ok", "wa", "al"][s]}" role="img" aria-label="Status: ${["On track", "Watch", "Alert"][s]}" title="${["On track", "Watch", "Alert"][s]}"></span>`
       + `</button>`;
   }).join("");
 }
@@ -1392,7 +1425,7 @@ function rP(c) {
       + `and ${c.g[0] + c.g[1]} of ${c.n} students hold a B or higher.`
     : `Attendance is ${dir} ${Math.abs(d).toFixed(1)} points since Week 1 `
       + `and is ${v[7] >= 90 ? "at" : "below"} the 90% target.`;
-  $("#i1").innerHTML = "<em>Insight</em>" + text
+  $("#i1").innerHTML = '<em role="img" aria-label="Insight" title="Insight"></em>' + text
     + ` If the trend continues, it is projected at ${pf[5].toFixed(1)}${pmet === "sc" ? "" : "%"} by Week 14.`;
 }
 
@@ -1459,14 +1492,15 @@ function rA() {
   const A = alertsFor(key);
   const T = alertsFor(key, true).length;
   $("#ac").textContent = T;
-  $("#aall").textContent = T > A.length ? `See all ${T} alerts` : "See all alerts";
+  $("#aall").textContent = T > A.length ? `See all (${T})` : "See all";
+  $("#aall").setAttribute("aria-label", `See all ${T} attention items`);
   $("#aall").hidden = !T;
   $("#al").innerHTML = A.map(a =>
     `<li><button aria-expanded="false">`
     + `<span class="ai ${a.s < 2 ? "n" : ""}">!</span>`
     + `<span><b>${a.t}</b><small>${a.d}</small><em hidden>Suggested action: ${a.a}</em></span>`
     + `</button></li>`
-  ).join("") || '<li class="none">No alerts. All indicators are within their thresholds.</li>';
+  ).join("") || '<li class="none">Nothing needs attention. All indicators are within their thresholds.</li>';
 }
 
 function rF(c) {
@@ -1510,7 +1544,7 @@ function rF(c) {
     + `<span>Likely range ${lo.toFixed(1)} to ${hi.toFixed(1)}%</span>`
     + `<small>Target</small><b>90%</b>`
     + `<span>${l >= 90 ? "Projected above target" : "Projected below target"}</span>`;
-  $("#i3").innerHTML = `<em>Insight</em>`
+  $("#i3").innerHTML = '<em role="img" aria-label="Insight" title="Insight"></em>'
     + `${sl >= 0 ? "The pass rate is trending up" : "The pass rate is trending down"} `
     + `by ${Math.abs(sl).toFixed(1)} points a month. `
     + hitText + `Forecasts become less certain further ahead, so recheck each month.`;
@@ -1523,7 +1557,7 @@ function rD(c) {
     + `<i><u class="${r < 0 ? "n" : ""}" style="${r < 0 ? "right" : "left"}:50%;width:${Math.abs(r) * 50}%"></u></i></div>`
   ).join("");
   const t = c.dg.reduce((a, b, i) => Math.abs(b) > Math.abs(c.dg[a]) ? i : a, 0);
-  $("#i2").innerHTML = `<em>Insight</em>${DL[t]} has the strongest link to final grades. `
+  $("#i2").innerHTML = `<em role="img" aria-label="Insight" title="Insight"></em>${DL[t]} has the strongest link to final grades. `
     + `A link shows association, not cause.`;
 }
 
@@ -1550,7 +1584,7 @@ function rS(c) {
     + `<span>Outcome attainment<b>${c.out.toFixed(0)}%</b></span>`
     + `<span>On-time grading<b>${c.gs.toFixed(0)}%</b></span>`
     + `</div>`
-    + `<p class="in"><em>Insight</em>${CRL[wi]} is the lowest-rated criterion at ${c.crit[wi].toFixed(1)}.`
+    + `<p class="in"><em role="img" aria-label="Insight" title="Insight"></em>${CRL[wi]} is the lowest-rated criterion at ${c.crit[wi].toFixed(1)}.`
     + `${ok ? "" : " Few students responded, so treat this as a prompt for discussion, not a conclusion."}</p>`
     + `<p class="cav">SETE is one source of evidence, not a verdict on teaching quality. `
     + `Read it with the response rate, the criteria and the other evidence above.</p>`;
@@ -1580,8 +1614,8 @@ function render() {
   rC();
   const n = alertsFor(key, true).length;
   $("#hl").innerHTML = n
-    ? `<mark>${n} alert${n > 1 ? "s" : ""}</mark> need${n > 1 ? "" : "s"} your attention this week`
-    : `All indicators are <mark>on track</mark> this week`;
+    ? `<mark><span class="severity-icon alert" role="img" aria-label="Alert" title="Alert"></span> ${n}</mark> need${n > 1 ? "" : "s"} your attention this week`
+    : `All indicators are <span class="status-pill ok" role="img" aria-label="On track" title="On track"></span> within target this week`;
   $("#hs").textContent = (key === "all" ? "All my sections" : CR[key].name)
     + " · Midterm, Weeks 1–8 · AY 2026–27, 1st Semester";
   rK(C);
@@ -1631,8 +1665,7 @@ $("#ks").onclick = e => {
     : "";
   $("#kvb").innerHTML =
     `<div class="hd"><h3>${d.n} `
-    + `<span class="kx ${["ok", "wa", "al"][s]}" style="background:${s ? "" : "rgba(7,26,74,.1)"}">`
-    + `${["On track", "Watch", "Alert"][s]}</span></h3>`
+    + `<span class="kx ${["ok", "wa", "al"][s]}" role="img" aria-label="Status: ${["On track", "Watch", "Alert"][s]}" title="${["On track", "Watch", "Alert"][s]}" style="background:${s ? "" : "rgba(7,26,74,.1)"}"></span></h3>`
     + `<button class="ibtn" data-x aria-label="Close">`
     + `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" `
     + `stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>`
@@ -1740,7 +1773,7 @@ function rC() {
     return `<tr data-k="${k}" tabindex="0" class="${key === k ? "on" : ""}">`
       + `<td><b>${CR[k].name}</b></td><td>${c.n}</td><td>${c.pass.toFixed(1)}%</td><td>${c.att.toFixed(1)}%</td>`
       + `<td>${c.sete.toFixed(1)} / 5 · ${c.resp.toFixed(0)}% responded</td><td>${c.hi}</td>`
-      + `<td><span class="pill ${n ? "hi" : ""}">${n ? n + (n > 1 ? " alerts" : " alert") : "On track"}</span></td></tr>`;
+      + `<td><span class="status-pill ${n ? "alert" : "ok"}" role="img" aria-label="${n ? n + (n > 1 ? " alerts" : " alert") : "On track"}" title="${n ? n + (n > 1 ? " alerts" : " alert") : "On track"}"></span></td></tr>`;
   }).join("");
   accordionize("#cb", [0, 1, 2, 6]);
 }
@@ -1788,14 +1821,14 @@ let af = "all";
 const afFilter = a => af === "all" || (af === "alert" ? a.s === 2 : a.s === 1);
 function aoShell() {
   $("#aob").innerHTML =
-    `<div class="hd"><h3>All alerts</h3>`
+    `<div class="hd"><h3>All attention items</h3>`
     + `<button class="ibtn" data-x aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" `
     + `stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>`
-    + `<p class="pv">An alert appears when an indicator passes its warning level. Treat each one as a prompt to look closer, `
+    + `<p class="pv">An attention item appears when an indicator passes its warning level. Treat each one as a prompt to look closer, `
     + `not as a verdict.</p>`
     + `<div class="chips" id="aof">`
     + [["all", "All"], ["alert", "Alert"], ["watch", "Watch"]].map(f =>
-      `<button class="chip" data-f="${f[0]}" aria-pressed="${f[0] === af}">${f[1]}</button>`).join("")
+      `<button class="chip alert-filter" data-f="${f[0]}" aria-label="${f[1]}" title="${f[1]}" aria-pressed="${f[0] === af}">${f[0] === "all" ? "All" : ""}</button>`).join("")
     + `</div><div class="sub" id="aoc" style="margin:0"></div><ul class="aol" id="aol"></ul>`;
   aoList();
 }
@@ -1805,9 +1838,9 @@ function aoList() {
   $("#aoc").textContent = `Showing ${A.length} of ${all.length} · ${key === "all" ? "all sections" : CR[key].name}`;
   $("#aol").innerHTML = A.map(a =>
     `<li class="arow"><span class="ai ${a.s < 2 ? "n" : ""}">!</span><span>`
-    + `<b>${a.t}</b><i class="pill ${a.s === 2 ? "hi" : "md"}">${a.s === 2 ? "Alert" : "Watch"}</i>`
+    + `<b>${a.t}</b><i class="severity-icon ${a.s === 2 ? "alert" : "watch"}" role="img" aria-label="${a.s === 2 ? "Alert" : "Watch"}" title="${a.s === 2 ? "Alert" : "Watch"}"></i>`
     + `<small>${a.d}</small><em>Suggested action: ${a.a}</em></span></li>`
-  ).join("") || '<li class="arow"><span></span><span>No alerts in this group.</span></li>';
+  ).join("") || '<li class="arow"><span></span><span>Nothing needs attention in this group.</span></li>';
 }
 $("#aall").onclick = () => {
   af = "all";
@@ -1850,11 +1883,13 @@ function exPreview() {
   if (EX.inc.kpi) {
     h += "<ul>" + KD.map(d => {
       const v = d.f(C);
-      return `<li><span>${d.n}</span><b>${v.toFixed(1)}${d.u === "/5" ? " / 5" : "%"} · ${["On track", "Watch", "Alert"][stat(d, v)]}</b></li>`;
+      const state = ["On track", "Watch", "Alert"][stat(d, v)];
+      const icon = ["ok", "watch", "alert"][stat(d, v)];
+      return `<li><span>${d.n}</span><b>${v.toFixed(1)}${d.u === "/5" ? " / 5" : "%"} <i class="status-pill ${icon}" role="img" aria-label="${state}" title="${state}"></i></b></li>`;
     }).join("") + "</ul>";
   }
   if (EX.inc.al) {
-    h += `<p class="sub">Alerts (${A.length})</p><ul>`
+    h += `<p class="sub">Attention items (${A.length})</p><ul>`
       + (A.map(a => `<li><span>${a.t}</span></li>`).join("") || "<li><span>None</span></li>") + "</ul>";
   }
   if (EX.inc.sete) {
