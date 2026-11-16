@@ -314,6 +314,7 @@ table { border-collapse: collapse; width: 100%; min-width: 480px; }
 th, td { padding: 9px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--line); white-space: nowrap; }
 th { position: sticky; top: 0; background: #eceef1; font-size: 12px; color: var(--mute); }
 tbody tr:hover { background: #f5f6f8; }
+.row-toggle, .mobile-details { display: none; }
 .pill { font-size: 11px; font-weight: 800; padding: 2px 9px; border-radius: 3px; background: #e3e5e8; }
 .pill.hi { background: var(--yel); color: #231a00; }
 .pill.md { box-shadow: inset 0 0 0 1.5px var(--yel); background: none; }
@@ -553,7 +554,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 @media (max-width: 640px) {
   body { padding: 12px; }
   .topbar {
-    display: grid; grid-template-columns: minmax(0, 1fr) 40px 38px;
+    display: grid; grid-template-columns: minmax(0, 1fr) 44px 38px;
     gap: 10px; align-items: center; padding-bottom: 12px;
   }
   .brand { gap: 8px; }
@@ -561,27 +562,45 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
   .brand b { font-size: 14px; }
   .brand small { font-size: 10.5px; }
   .nw { position: relative; margin: 0; justify-self: center; }
-  .nw .ibtn { margin: 0; }
+  .nw .ibtn { width: 44px; height: 44px; margin: 0; }
   .np {
     position: fixed; top: max(64px, calc(env(safe-area-inset-top, 0px) + 64px));
     right: 12px; left: auto; width: min(350px, calc(100vw - 48px));
   }
   .me { justify-self: end; }
 
-  .hero { gap: 12px; margin: 14px 0 18px; padding: 18px; border-radius: 20px; }
+  .hero { gap: 8px; margin: 12px 0 14px; padding: 14px 16px; border-radius: 20px; }
+  .eyb { margin-bottom: 3px; font-size: 11.5px; }
   .hero h1 { font-size: clamp(23px, 7vw, 30px); }
-  .lead { font-size: 12.5px; }
-  .hfoot { gap: 8px; padding-top: 10px; }
-  .hero .key { line-height: 1.8; }
+  .lead { display: none; }
+  .hfoot { gap: 6px 10px; padding-top: 8px; }
+  .hero .key { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; line-height: 1.4; }
+  .key-item { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .key-desc { display: none; }
   .ctl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
   .ctl .sel { grid-column: 1 / -1; width: 100%; }
   .ctl select, .ctl .btn { width: 100%; justify-content: center; }
-  .ctl .btn { padding: 0 12px; }
+  .ctl .btn { min-height: 44px; padding: 0 12px; }
 
   .band { padding: 4px 0 20px; }
   .bh { align-items: center; }
   .bh > div:last-child { gap: 6px !important; flex-wrap: wrap; justify-content: flex-end; }
   .bh h2 { font-size: 17px; }
+  .bh > div:first-child > span { display: none; }
+  .bh #kdef {
+    display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+    border-radius: 50%; background: rgba(255, 255, 255, .6); font-size: 0;
+  }
+  .bh #kdef span { display: none; }
+  .bh #kdef svg { display: block; }
+  .tg.rec, .tg.ins, .tg.prop {
+    display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0;
+    margin: 0 3px 0 0; font-size: 0; vertical-align: middle;
+  }
+  .tg.rec::before, .tg.ins::before, .tg.prop::before { font-size: 13px; line-height: 1; }
+  .tg.rec::before { content: "✓"; }
+  .tg.ins::before { content: "i"; display: grid; place-items: center; width: 14px; height: 14px; border: 1px solid currentColor; border-radius: 50%; font-size: 10px; font-weight: 800; }
+  .tg.prop::before { content: "✦"; }
   .ks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .k, .k:first-child {
     min-width: 0; padding: 12px; border: 1px solid rgba(255, 255, 255, .9);
@@ -591,7 +610,19 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
   .kn { font-size: 11.5px; }
   .kv { font-size: 34px; }
   .kf { font-size: 10.5px; }
-  .kx { font-size: 10px; }
+  .kx {
+    display: inline-grid; place-items: center; width: 26px; min-width: 26px; height: 26px;
+    padding: 0; border-radius: 50%; font-size: 0; vertical-align: middle;
+  }
+  .kx::before { font-size: 14px; line-height: 1; font-weight: 800; }
+  .kx.ok::before { content: "✓"; }
+  .kx.wa::before { content: "◉"; }
+  .kx.al::before { content: "!"; }
+  .in em {
+    display: inline-grid; place-items: center; width: 18px; height: 18px; padding: 0;
+    margin-right: 5px; font-size: 0; vertical-align: -3px;
+  }
+  .in em::before { content: "i"; font-size: 11px; }
 
   .bento { gap: 14px; }
   .c { padding: 17px; border-radius: 22px; }
@@ -607,13 +638,54 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
   .atb { align-items: center; margin-top: 4px; }
   .atb h2 { font-size: 20px; }
   .atb .btn { width: auto; }
+  .atb #rs {
+    display: grid; place-items: center; width: 44px; min-width: 44px; height: 44px;
+    padding: 0; border-radius: 50%; font-size: 0;
+  }
   .ft { display: grid; gap: 5px; margin-top: 18px; padding: 14px 18px; border-radius: 20px; }
   .mod { max-height: 90dvh; }
+
+  /* Tables become accessible, expandable record cards on phones */
+  .tw { overflow: visible; max-height: none; border: 0; border-radius: 0; }
+  .tw table.mobile-accordion { width: 100%; min-width: 0; border-collapse: separate; border-spacing: 0 8px; }
+  .mobile-accordion thead { display: none; }
+  .mobile-accordion tbody tr {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)); gap: 8px;
+    padding: 12px; border: 1px solid rgba(13, 42, 120, .14); border-radius: 16px;
+    background: rgba(255, 255, 255, .76); box-shadow: 0 5px 16px rgba(7, 26, 74, .07);
+  }
+  .mobile-accordion tbody tr:hover { background: rgba(255, 255, 255, .92); }
+  .mobile-accordion tbody td { display: none; min-width: 0; padding: 0; border: 0; white-space: normal; font-size: 12.5px; }
+  .mobile-accordion tbody td.mobile-primary { display: block; }
+  .mobile-accordion tbody td.mobile-primary:not(:first-child) { color: var(--deep); font-weight: 700; }
+  .mobile-accordion tbody td.mobile-primary:not(:first-child)::before {
+    content: attr(data-label); display: block; margin-bottom: 2px; color: var(--mute);
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+  }
+  .mobile-accordion tbody td:first-child.mobile-primary {
+    grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    font-size: 14px;
+  }
+  .row-toggle {
+    display: grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0;
+    border: 1px solid rgba(13, 42, 120, .18); border-radius: 50%; color: var(--deep);
+    background: rgba(255, 255, 255, .9); touch-action: manipulation;
+  }
+  .row-toggle:hover { background: #fff; }
+  .row-toggle svg { transition: transform .15s; }
+  .mobile-open .row-toggle svg { transform: rotate(90deg); }
+  .mobile-accordion tbody td.mobile-details {
+    display: block; grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid var(--line);
+  }
+  .mobile-details[hidden] { display: none !important; }
+  .mobile-details dl { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .mobile-details dl div { display: grid; grid-template-columns: minmax(92px, .75fr) 1.25fr; gap: 10px; align-items: start; }
+  .mobile-details dt { font-size: 10.5px; }
+  .mobile-details dd { margin: 0; overflow-wrap: anywhere; font-size: 12px; }
+  #cb .mobile-primary:last-of-type .pill { white-space: nowrap; }
 }
 
 @media (max-width: 380px) {
-  .ctl { grid-template-columns: 1fr; }
-  .ctl .sel { grid-column: auto; }
   .brand b { font-size: 13px; }
   .brand small { display: none; }
   .bh > div:last-child .tg { display: none; }
@@ -678,10 +750,10 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
       </div>
       <div class="hfoot">
         <p class="scope" id="hs"></p>
-        <p class="key">
-          <span class="tg rec">Recorded</span>from portal records
-          <span class="tg ins">Insight</span>calculated from records
-          <span class="tg prop">Proposed</span>planned feature, not in the live portal yet
+          <p class="key">
+          <span class="key-item"><span class="tg rec">Recorded</span><span class="key-desc">from portal records</span></span>
+          <span class="key-item"><span class="tg ins">Insight</span><span class="key-desc">calculated from records</span></span>
+          <span class="key-item"><span class="tg prop">Proposed</span><span class="key-desc">planned feature, not in the live portal yet</span></span>
         </p>
       </div>
     </section>
@@ -693,7 +765,11 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
           <span>Midterm period, Weeks 1–8 · AY 2026–27, 1st Semester · Select an indicator for its definition</span>
         </div>
         <div style="display:flex;gap:12px;align-items:center">
-          <button class="link" id="kdef">View KPI definitions</button>
+          <button class="link" id="kdef" aria-label="View KPI definitions" title="View KPI definitions">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 5h14M5 12h14M5 19h14"/><circle cx="2.5" cy="5" r=".5" fill="currentColor"/><circle cx="2.5" cy="12" r=".5" fill="currentColor"/><circle cx="2.5" cy="19" r=".5" fill="currentColor"/>
+            </svg><span>View KPI definitions</span>
+          </button>
           <span class="tg rec" style="margin:0">Recorded</span>
         </div>
       </div>
@@ -737,7 +813,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
           <h2>Analytics</h2>
           <span>Performance, drivers, forecast and what-if controls</span>
         </div>
-        <button class="btn ghost" id="rs" title="Set the section, charts, sliders and filters back to their defaults">
+        <button class="btn ghost" id="rs" aria-label="Reset analytics" title="Reset analytics to defaults">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>
@@ -951,6 +1027,61 @@ Object.entries(CR).forEach(([k, c]) => {
 const gr = v => v >= 90 ? 0 : v >= 85 ? 1 : v >= 80 ? 2 : v >= 75 ? 3 : 4;
 const RL = { high: "High", medium: "Medium", low: "Low" };
 const mask = id => id.slice(0, 5) + "••" + id.slice(-2);
+
+/* Add a mobile disclosure control while preserving the full desktop tables */
+let accordionId = 0;
+function accordionize(body, primary) {
+  const tb = $(body);
+  const table = tb.closest("table");
+  const heads = [...table.querySelectorAll("thead th")].map(th => th.textContent.trim());
+  table.classList.add("mobile-accordion");
+  tb.querySelectorAll("tr").forEach(row => {
+    const cells = [...row.querySelectorAll("td")];
+    if (cells.length < 2 || cells.some(cell => cell.hasAttribute("colspan"))) return;
+    const details = [];
+    cells.forEach((cell, i) => {
+      if (primary.includes(i)) cell.classList.add("mobile-primary");
+      else {
+        cell.classList.add("mobile-extra");
+        details.push(`<div><dt>${heads[i] || `Field ${i + 1}`}</dt><dd>${cell.innerHTML}</dd></div>`);
+      }
+      if (primary.includes(i) && i > 0) cell.dataset.label = heads[i] || `Field ${i + 1}`;
+    });
+    if (!details.length) return;
+
+    const id = `row-details-${++accordionId}`;
+    const first = cells[0];
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "row-toggle";
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-controls", id);
+    button.setAttribute("aria-label", `Show details for ${first.textContent.trim()}`);
+    button.title = "Show remaining columns";
+    button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>';
+    first.append(button);
+
+    const detailCell = document.createElement("td");
+    detailCell.className = "mobile-details";
+    detailCell.colSpan = cells.length;
+    detailCell.id = id;
+    detailCell.hidden = true;
+    detailCell.innerHTML = `<dl>${details.join("")}</dl>`;
+    row.append(detailCell);
+  });
+}
+
+document.addEventListener("click", e => {
+  const button = e.target.closest(".row-toggle");
+  if (!button) return;
+  e.stopPropagation();
+  const expanded = button.getAttribute("aria-expanded") !== "true";
+  button.setAttribute("aria-expanded", expanded);
+  button.setAttribute("aria-label", `${expanded ? "Hide" : "Show"} details for ${button.parentElement.firstChild.textContent.trim()}`);
+  button.title = expanded ? "Hide remaining columns" : "Show remaining columns";
+  button.closest("tr").classList.toggle("mobile-open", expanded);
+  document.getElementById(button.getAttribute("aria-controls")).hidden = !expanded;
+});
 
 /* ---------- Calculations ---------- */
 function calc(k) {
@@ -1220,7 +1351,7 @@ function rK(c) {
       + `<b class="kv">${v.toFixed(1)}<small>${d.u}</small></b>`
       + `<i class="kb"><u style="width:${Math.min(100, v / d.t * 100)}%"></u></i>`
       + `<span class="kf">Target ${d.tt} · ${foot}<br>Warns below ${d.w}${d.u === "/5" ? "" : "%"}</span>`
-      + `<span class="kx ${["ok", "wa", "al"][s]}">${["On track", "Watch", "Alert"][s]}</span>`
+      + `<span class="kx ${["ok", "wa", "al"][s]}" role="img" aria-label="Status: ${["On track", "Watch", "Alert"][s]}" title="${["On track", "Watch", "Alert"][s]}">${["On track", "Watch", "Alert"][s]}</span>`
       + `</button>`;
   }).join("");
 }
@@ -1540,6 +1671,7 @@ function list() {
       + `<td>${s.at}%</td><td>${s.av}</td>`
       + `<td><span class="pill ${pill}">${RL[s.risk]}</span></td></tr>`;
   }).join("") || '<tr><td colspan="5">No students match. Clear the search or change the filter.</td></tr>';
+  accordionize("#tb", [0, 1, 4]);
 }
 
 let last;
@@ -1610,6 +1742,7 @@ function rC() {
       + `<td>${c.sete.toFixed(1)} / 5 · ${c.resp.toFixed(0)}% responded</td><td>${c.hi}</td>`
       + `<td><span class="pill ${n ? "hi" : ""}">${n ? n + (n > 1 ? " alerts" : " alert") : "On track"}</span></td></tr>`;
   }).join("");
+  accordionize("#cb", [0, 1, 2, 6]);
 }
 function pickSection(e) {
   const r = e.target.closest("tr");
@@ -1643,6 +1776,7 @@ function kdRender() {
     + `<tbody>${rows}</tbody></table></div>`
     + `<p class="sub" style="margin:0">Reading SETE responsibly</p>`
     + `<ul class="acts">${tips.map((t, i) => `<li><span class="pl">${i + 1}</span>${t}</li>`).join("")}</ul>`;
+  accordionize("#dob tbody", [0, 1]);
 }
 $("#kdef").onclick = () => {
   kdRender();
