@@ -530,6 +530,11 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 .dk .link { color: var(--yel); }
 .dk .link:hover { color: #fff; }
 #aall { margin-top: 10px; padding: 6px 4px; font-size: 13px; }
+#alerts .al { scrollbar-width: thin; scrollbar-color: rgba(185, 198, 239, .7) rgba(255,255,255,.1); }
+#alerts .al::-webkit-scrollbar { width: 10px; }
+#alerts .al::-webkit-scrollbar-track { margin: 8px 0; border-radius: 99px; background: rgba(255,255,255,.1); }
+#alerts .al::-webkit-scrollbar-thumb { min-height: 36px; border: 2px solid transparent; border-radius: 99px; background: rgba(185,198,239,.72); background-clip: padding-box; }
+#alerts .al::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.92); background-clip: padding-box; }
 .pass-fail { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; }
 .pass-fail span { padding: 4px 9px; border-radius: 99px; background: #e0f3e8; color: var(--ok); font-size: 11px; font-weight: 700; }
 .pass-fail span:last-child { background: #fde2e2; color: var(--bad); }
@@ -653,11 +658,24 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 .cmp-status.watch { background: #fff1c2; color: #7a5a00; }
 .cmp-status.alert { background: #fde2e2; color: var(--bad); }
 .cmp-note { margin: 9px 4px 0; color: var(--mute); font-size: 11px; }
+.cmp-metrics-wrap { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.cmp-metrics-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 5px 12px; margin-bottom: 10px; }
+.cmp-metrics-head h4 { margin: 0; color: var(--deep); font-family: Georgia, serif; font-size: 15px; }
+.cmp-metrics-head span { color: var(--mute); font-size: 11px; }
+.cmp-metrics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.cmp-metric-card { min-width: 0; padding: 12px; border: 1px solid rgba(255,255,255,.9); border-radius: 16px; background: rgba(255,255,255,.58); box-shadow: 0 5px 14px rgba(7,26,74,.06); }
+.cmp-metric-name { color: var(--mute); font-size: 11px; font-weight: 700; line-height: 1.3; }
+.cmp-metric-value { min-height: 36px; margin-top: 5px; color: var(--deep); font-family: Georgia, serif; font-size: 25px; font-weight: 700; line-height: 1.2; }
+.cmp-metric-foot { margin-top: 5px; color: var(--mute); font-size: 10px; line-height: 1.45; }
+.cmp-metric-status { display: inline-block; margin-top: 7px; padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 800; }
+.cmp-metric-status.s0 { background: #e0f3e8; color: var(--ok); }
+.cmp-metric-status.s1 { background: #fff1c2; color: #7a5a00; }
+.cmp-metric-status.s2 { background: #fde2e2; color: var(--bad); }
+.cmp-metrics[data-empty=true] .cmp-metric-value { min-height: 30px; }
+.cmp-metrics[data-empty=true] .cmp-metric-value::after { content: ""; display: block; width: 48%; height: 15px; margin-top: 5px; border-radius: 5px; background: rgba(13,42,120,.08); }
+.cmp-metrics[data-empty=true] .cmp-metric-foot { min-height: 28px; }
+.cmp-metrics[data-empty=true] .cmp-metric-status { display: none; }
 .alert-tools { display: flex; align-items: center; gap: 8px; flex: none; }
-.scroll-alerts { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid rgba(255,255,255,.32); border-radius: 50%; color: #fff; background: rgba(255,255,255,.1); transition: background .15s, transform .15s; }
-.scroll-alerts:hover { background: rgba(255,255,255,.22); transform: translateY(2px); }
-.scroll-alerts svg { width: 18px; height: 18px; }
-.scroll-alerts.up svg { transform: rotate(180deg); }
 
 /* Student popup tabs */
 .stabs .chip { padding: 7px 14px; }
@@ -773,6 +791,8 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
   .cmp-status { grid-column: 2; grid-row: 2; }
   .cmp-track { grid-column: 1 / -1; grid-row: 3; }
   .cmp-reset { min-height: 40px; padding: 0 12px; }
+  .cmp-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cmp-metric-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 
 @media (max-width: 380px) {
@@ -870,10 +890,7 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
         <div class="ch">
           <div><h3>Needs attention</h3><span>Conditions that need attention</span></div>
           <div class="alert-tools">
-            <button class="scroll-alerts" id="ascr" type="button" aria-label="Scroll to next conditions" title="Scroll to next conditions">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
-            <span class="source-icon ins" role="img" aria-label="Insight" title="Insight" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M8.2 14.5A7 7 0 1 1 15.8 14.5c-.9.7-1.3 1.4-1.5 2.5h-4.6c-.2-1.1-.6-1.8-1.5-2.5Z"/><path d="M12 5v2M5.5 11H7"/></svg></span><b class="cnt" id="ac"></b>
+            <b class="cnt" id="ac"></b><span class="source-icon ins" role="img" aria-label="Insight" title="Insight" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M8.2 14.5A7 7 0 1 1 15.8 14.5c-.9.7-1.3 1.4-1.5 2.5h-4.6c-.2-1.1-.6-1.8-1.5-2.5Z"/><path d="M12 5v2M5.5 11H7"/></svg></span>
           </div>
         </div>
         <ul class="al" id="al"></ul>
@@ -897,6 +914,10 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
         </div>
         <div class="cmp-list" id="cmp-chart" role="group" aria-label="Overview of all assigned sections"></div>
         <p class="cmp-note">Bars show pass rate; red, amber, and green indicators show section status. Select any section to apply the global Section filter.</p>
+        <div class="cmp-metrics-wrap" id="cmp-metrics-wrap" aria-live="polite">
+          <div class="cmp-metrics-head"><h4 id="cmp-metrics-title">Selected section metrics</h4><span id="cmp-metrics-scope">Select a section above to view its KPI metrics.</span></div>
+          <div class="cmp-metrics" id="cmp-metrics"></div>
+        </div>
       </article>
       <div class="atb" id="analytics">
         <div>
@@ -1002,8 +1023,8 @@ select:focus-visible { outline: 0; border-color: var(--navy); box-shadow: 0 0 0 
 
     <footer class="ft">
       <span>© 2026 Carolina University · Since 1863</span>
-      <span>BSIT, Business Analytics · Sample data for demonstration</span>
-      <span>Last updated Nov 15, 2026</span>
+      <span>BSIT Business Analytics · Faculty Dashboard</span>
+      <span>Niel Betita | Theresa Valiente</span>
     </footer>
   </div>
 </div>
@@ -1540,30 +1561,7 @@ function rA() {
     ? `${T === 1 ? "Requires" : "Require"} review in your selected section.`
     : "No active conditions require review in your selected section.";
   $("#hero-count").setAttribute("aria-label", `${T} ${T === 1 ? "alert" : "alerts"} in ${sectionName}`);
-  updateAlertScroll();
 }
-
-function updateAlertScroll() {
-  const list = $("#al");
-  const button = $("#ascr");
-  const canScroll = list.scrollHeight > list.clientHeight + 4;
-  button.hidden = !canScroll;
-  if (!canScroll) return;
-  const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 4;
-  button.classList.toggle("up", atBottom);
-  button.setAttribute("aria-label", atBottom ? "Return to top of conditions" : "Scroll to next conditions");
-  button.title = atBottom ? "Return to top of conditions" : "Scroll to next conditions";
-}
-$("#ascr").onclick = () => {
-  const list = $("#al");
-  const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 4;
-  const target = atBottom ? 0 : Math.min(list.scrollTop + list.clientHeight * .8, list.scrollHeight);
-  const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches || document.visibilityState === "hidden"
-    ? "instant" : "smooth";
-  list.scrollTo({ top: target, behavior });
-};
-$("#al").onscroll = updateAlertScroll;
-window.addEventListener("resize", updateAlertScroll);
 
 function rF(c) {
   const h = +$("#hz").value;
@@ -1869,6 +1867,23 @@ function rC() {
       + `<span class="cmp-status ${status.cls}">${status.label}</span></button>`;
   }).join("");
   $("#cmp-reset").hidden = key === "all";
+  const metricCards = KD.map(d => {
+    const empty = key === "all";
+    const value = empty ? "" : d.f(C).toFixed(1) + d.u;
+    const status = empty ? null : stat(d, d.f(C));
+    const gap = empty ? "" : `${d.f(C) >= d.t ? "+" : "−"}${Math.abs(d.f(C) - d.t).toFixed(1)} vs target`;
+    return `<article class="cmp-metric-card">`
+      + `<div class="cmp-metric-name">${d.n}</div>`
+      + `<div class="cmp-metric-value">${value}</div>`
+      + `<div class="cmp-metric-foot">${empty ? "" : `Target ${d.tt} · Warns below ${d.w}${d.u === "/5" ? " / 5" : "%"}<br>${gap}`}</div>`
+      + `${empty ? "" : `<span class="cmp-metric-status s${status}">${["On track", "Watch", "Alert"][status]}</span>`}`
+      + `</article>`;
+  }).join("");
+  $("#cmp-metrics").dataset.empty = key === "all";
+  $("#cmp-metrics").innerHTML = metricCards;
+  $("#cmp-metrics-scope").textContent = key === "all"
+    ? "Select a section above to load its metrics."
+    : `${CR[key].name} · Midterm, Weeks 1–8 · Demonstration data`;
 }
 function pickSection(e) {
   const r = e.target.closest(".cmp-row");
